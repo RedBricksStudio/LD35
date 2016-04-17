@@ -2,16 +2,22 @@ extends KinematicBody2D
 
 var speed = 250
 var direction = Vector2(0, 0)
-var shapes = ["robot", "alien"]
-var alien_texture
-var robot_texture
+var shapes = ["robot", "guard", "attendee"]
 var current_shape = shapes[0]
 var attacking = false
 var talking = false
 var shapeshifting = false
 export var talk_threshold = 10000
 export var attack_threshold = 100
-var sprite
+onready var sprite = get_node("Sprite")
+onready var robot_texture = preload("res://Textures/icon.tex")
+onready var guard_texture = preload("res://Textures/enemy.tex")
+onready var alien_texture = preload("res://Textures/AlienThingy.tex")
+onready var texture_dict = {"robot": robot_texture, "guard": guard_texture,
+							"attendee": alien_texture}
+
+func _ready():
+	set_fixed_process(true)
 
 func _fixed_process(delta):
 	if attacking or talking or shapeshifting:
@@ -43,23 +49,12 @@ func _fixed_process(delta):
 	
 	move(direction * speed * delta)
 
-func _ready():
-	set_fixed_process(true)
-	
-	robot_texture = preload("res://Textures/icon.tex")
-	alien_texture = preload("res://Textures/AlienThingy.tex")
-	sprite = get_node("Sprite")
-
 func get_shape():
 	return current_shape
 
 func next_shape():
-	if current_shape == shapes[0]:
-		sprite.set_texture(alien_texture)
-		current_shape = shapes[1]
-	else:
-		sprite.set_texture(robot_texture)
-		current_shape = shapes[0]
+	current_shape = shapes[(shapes.find(current_shape) + 1 ) % shapes.size()]
+	print(current_shape)
 
 func talk():
 	var talkable_npcs = get_tree().get_nodes_in_group("talkable")
@@ -87,7 +82,9 @@ func attack():
 			closest = npc
 	
 	if closest_distance < attack_threshold:
-		closest._being_attacked()
+		var npc_shape = closest._being_attacked()
+		if shapes.find(npc_shape) == -1:
+			shapes.append(npc_shape)
 
 func _attack_finished():
 	attacking = false
