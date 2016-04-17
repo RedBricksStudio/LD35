@@ -82,8 +82,8 @@ func _being_attacked():
 
 func _being_talked(actor):
 	if actor == "robot":
-		print(robot_dialog)
+		get_node("../Dialog").dialog_change(robot_dialog)
 	elif actor == "guard":
-		print(guards_dialog)
+		get_node("../Dialog").dialog_change(guards_dialog)
 	elif actor == attendee_dialog:
-		print(attendee_dialog)
+		get_node("../Dialog").dialog_change(attendee_dialog)
