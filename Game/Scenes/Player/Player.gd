@@ -13,8 +13,7 @@ onready var sprite = get_node("Sprite")
 onready var robot_texture = preload("res://Textures/icon.tex")
 onready var guard_texture = preload("res://Textures/enemy.tex")
 onready var alien_texture = preload("res://Textures/AlienThingy.tex")
-onready var texture_dict = {"robot": robot_texture, "guard": guard_texture,
-							"attendee": alien_texture}
+onready var texture_dict = {"robot": robot_texture}
 
 func _ready():
 	set_fixed_process(true)
@@ -80,14 +79,14 @@ func attack():
 	var closest_distance = get_pos().distance_squared_to(attackable_npcs[0].get_pos())
 	var closest = attackable_npcs[0]
 	for npc in attackable_npcs:
-		if get_pos().distance_squared_to(npc.get_pos()) < closest_distance:
-			closest_distance = get_pos().distance_squared_to(npc.get_pos())
+		if get_pos().distance_to(npc.get_pos()) < closest_distance:
+			closest_distance = get_pos().distance_to(npc.get_pos())
 			closest = npc
 			
 	if closest_distance < attack_threshold:
 		var npc_shape = closest._being_attacked()
 		if shapes.find(npc_shape) == -1:
-			#texture_dict[npc_shape] = closest.
+			texture_dict[npc_shape] = closest.get_texture()
 			shapes.append(npc_shape)
 
 func _attack_finished():

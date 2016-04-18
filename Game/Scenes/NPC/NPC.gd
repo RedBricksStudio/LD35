@@ -78,6 +78,8 @@ func nextWaypoint():
 	currentWaypointPos = waypoints[currentWaypointIndex].get_global_pos()
 
 func _being_attacked():
+	print("I'm being attacked")
+	queue_free()
 	return shape
 
 func get_texture():
