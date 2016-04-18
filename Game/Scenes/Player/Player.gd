@@ -33,7 +33,7 @@ func _fixed_process(delta):
 #		shapeshifting = true
 #		direction = Vector2(0, 0)
 #		get_node("PlayerAnimations").play("PrevShape")
-	elif Input.is_action_pressed("next_shape"):
+	elif Input.is_action_pressed("next_shape") and shapes.size() > 1:
 		shapeshifting = true
 		direction = Vector2(0, 0)
 		get_node("PlayerAnimations").play("NextShape")
