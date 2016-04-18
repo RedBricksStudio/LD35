@@ -17,7 +17,7 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	if attacking or talking or shapeshifting:
+	if attacking or shapeshifting:
 		pass
 	elif Input.is_action_pressed("talk"):
 		talking = true
@@ -48,6 +48,8 @@ func _fixed_process(delta):
 	
 	move(direction * speed * delta)
 	set_z(get_pos().y)
+	if not get_node("PlayerAnimations").is_playing():
+		get_node("PlayerAnimations").play("Idle")
 
 func next_shape():
 	current_shape = shapes[(shapes.find(current_shape) + 1 ) % shapes.size()]
@@ -68,6 +70,8 @@ func talk():
 	
 	if closest_distance < talk_threshold:
 		closest._being_talked(current_shape)
+		talking = false
+	else:
 		talking = false
 
 func attack():
