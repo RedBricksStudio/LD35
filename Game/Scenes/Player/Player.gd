@@ -2,7 +2,6 @@ extends KinematicBody2D
 
 var speed = 250
 var direction = Vector2(0, 0)
-# var shapes = ["robot", "guard", "attendee"]
 var shapes = ["robot"]
 var current_shape = shapes[0]
 var attacking = false
