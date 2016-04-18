@@ -2,7 +2,7 @@ extends Node
 
 var player
 onready var s = ResourceLoader.load("res://Scenes/End/End.scn")
-export var win_location = Vector2(100, 100)
+export var win_location = Vector2(80, 80)
 var current_scene
 
 func _ready():
