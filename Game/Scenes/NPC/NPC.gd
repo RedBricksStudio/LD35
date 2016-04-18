@@ -18,6 +18,13 @@ func _ready():
 		set_fixed_process(true)
 		currentWaypointPos = waypoints[0].get_global_pos()
 		currentWaypointIndex = 0
+	else:
+		set_process(true)
+
+func _process(delta):
+	if not get_node("NPCAnimation").is_playing():
+		get_node("NPCAnimation").play("Idle")
+	set_z(get_pos().y)
 
 func _fixed_process(delta):
 	var motion = Vector2()

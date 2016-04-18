@@ -10,9 +10,7 @@ var shapeshifting = false
 export var talk_threshold = 5000
 export var attack_threshold = 5000
 onready var sprite = get_node("Sprite")
-onready var robot_texture = preload("res://Textures/icon.tex")
-onready var guard_texture = preload("res://Textures/enemy.tex")
-onready var alien_texture = preload("res://Textures/AlienThingy.tex")
+onready var robot_texture = sprite.get_texture()
 onready var texture_dict = {"robot": robot_texture}
 
 func _ready():
@@ -49,6 +47,7 @@ func _fixed_process(delta):
 		direction = Vector2(0, 0)
 	
 	move(direction * speed * delta)
+	set_z(get_pos().y)
 
 func next_shape():
 	current_shape = shapes[(shapes.find(current_shape) + 1 ) % shapes.size()]
