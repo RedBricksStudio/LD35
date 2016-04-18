@@ -80,6 +80,9 @@ func nextWaypoint():
 func _being_attacked():
 	return shape
 
+func get_texture():
+	return get_node("Sprite").get_texture()
+
 func _being_talked(actor):
 	if actor == "robot":
 		get_node("../Dialog").dialog_change(robot_dialog)

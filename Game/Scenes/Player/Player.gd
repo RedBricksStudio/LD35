@@ -59,6 +59,7 @@ func next_shape():
 func talk():
 	var talkable_npcs = get_tree().get_nodes_in_group("talkable")
 	if talkable_npcs.empty():
+		talking = false
 		return
 		
 	var closest_distance = get_pos().distance_squared_to(talkable_npcs[0].get_pos())
@@ -87,6 +88,7 @@ func attack():
 	if closest_distance < attack_threshold:
 		var npc_shape = closest._being_attacked()
 		if shapes.find(npc_shape) == -1:
+			#texture_dict[npc_shape] = closest.
 			shapes.append(npc_shape)
 
 func _attack_finished():
