@@ -3,11 +3,12 @@ extends KinematicBody2D
 var waypoints
 var currentWaypointPos
 var currentWaypointIndex
-var speed = 200
+var speed = 30
 var direction = 0
 export var robot_dialog = ""
 export var guards_dialog = ""
 export var attendee_dialog = ""
+export var boss_dialog = ""
 export var shape = ""
 
 func _ready():
@@ -97,5 +98,7 @@ func _being_talked(actor):
 		get_node("../Dialog").dialog_change(robot_dialog)
 	elif actor == "guard":
 		get_node("../Dialog").dialog_change(guards_dialog)
-	elif actor == attendee_dialog:
+	elif actor == "attendee":
 		get_node("../Dialog").dialog_change(attendee_dialog)
+	elif actor == "boss":
+		get_node("../Dialog").dialog_change(boss_dialog)

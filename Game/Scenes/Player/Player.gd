@@ -54,6 +54,10 @@ func _fixed_process(delta):
 func next_shape():
 	current_shape = shapes[(shapes.find(current_shape) + 1 ) % shapes.size()]
 	get_node("Sprite").set_texture(texture_dict[current_shape])
+	if (current_shape == "boss"):
+		get_node("../VIPwin").set_shape_as_trigger(0, true)
+	else:
+		get_node("../VIPwin").set_shape_as_trigger(0, false)
 
 func talk():
 	var talkable_npcs = get_tree().get_nodes_in_group("talkable")
@@ -88,6 +92,7 @@ func attack():
 			
 	if closest_distance < attack_threshold:
 		var npc_shape = closest._being_attacked()
+		print (npc_shape)
 		if shapes.find(npc_shape) == -1:
 			texture_dict[npc_shape] = closest.get_texture()
 			shapes.append(npc_shape)
